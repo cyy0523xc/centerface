@@ -37,17 +37,18 @@ RUN apt-get update -y \
     # install opencv4
     && mkdir /src \
     && cd /src \
+    # 下载可能很慢
     && wget https://github.com/opencv/opencv/archive/$cvVersion.tar.gz -O opencv.tar.gz \
     && wget https://github.com/opencv/opencv_contrib/archive/$cvVersion.tar.gz -O opencv_contrib.tar.gz \
     && tar -zxf opencv.tar.gz \
     && tar -zxf opencv_contrib.tar.gz \
     && rm opencv.tar.gz \
     && rm opencv_contrib.tar.gz \
-    && cd opencv \
+    && cd opencv-$cvVersion \
     && mkdir build \
     && cd build \
     && cmake -D CMAKE_BUILD_TYPE=Release \
-        -D OPENCV_EXTRA_MODULES_PATH=/src/opencv_contrib/modules \
+        -D OPENCV_EXTRA_MODULES_PATH=/src/opencv_contrib-$cvVersion/modules \
         -D CMAKE_INSTALL_PREFIX=/usr/local \
         .. \
     && make -j7 \
