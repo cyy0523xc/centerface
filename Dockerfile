@@ -4,7 +4,9 @@ FROM registry.cn-hangzhou.aliyuncs.com/ibbd/cuda:cuda101-cudnn7-py36-ubuntu1804
 
 MAINTAINER Alex Cai "cyy0523xc@gmail.com"
 
-# 安装基础库, opencv
+# install opencv
+# https://docs.opencv.org/4.1.2/d7/d9f/tutorial_linux_install.html
+# Unable to locate package libjasper-dev
 RUN apt-get update -y \
     # compiler
     && apt-get install -y --no-install-recommends \
@@ -25,7 +27,7 @@ RUN apt-get update -y \
         libjpeg-dev \
         libpng-dev \
         libtiff-dev \
-        libjasper-dev \
+        #libjasper-dev \
         libdc1394-22-dev \
     # install numpy
     && python3 -m pip install -U setuptools \
