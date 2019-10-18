@@ -8,6 +8,7 @@ MAINTAINER Alex Cai "cyy0523xc@gmail.com"
 # https://docs.opencv.org/4.1.2/d7/d9f/tutorial_linux_install.html
 # Unable to locate package libjasper-dev
 ENV cvVersion 4.1.2
+#ENV pyVersion 3.6
 RUN apt-get update -y \
     # compiler
     && apt-get install -y --no-install-recommends \
@@ -38,6 +39,7 @@ RUN apt-get update -y \
     && mkdir /src \
     && cd /src \
     # 下载可能很慢
+    # 文件大小约：85M+59M
     && wget https://github.com/opencv/opencv/archive/$cvVersion.tar.gz -O opencv.tar.gz \
     && wget https://github.com/opencv/opencv_contrib/archive/$cvVersion.tar.gz -O opencv_contrib.tar.gz \
     && tar -zxf opencv.tar.gz \
@@ -49,6 +51,7 @@ RUN apt-get update -y \
     && cd build \
     && cmake -D CMAKE_BUILD_TYPE=Release \
         -D OPENCV_EXTRA_MODULES_PATH=/src/opencv_contrib-$cvVersion/modules \
+        -D PYTHON3_EXECUTABLE=/usr/bin/python3 \
         -D CMAKE_INSTALL_PREFIX=/usr/local \
         .. \
     && make -j7 \
